@@ -2,8 +2,11 @@ package com.android.ufirephone.service;
 
 
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.net.NetworkInterface;
+
 import android.net.wifi.WifiManager;
 import android.util.Log;
 import java.util.Arrays;
@@ -17,6 +20,7 @@ public class MulticastBase
 	private WifiManager wifimanager 		= null;
 	private WifiManager.MulticastLock lock;
 	private MulticastSocket multicastSocket = null;
+	//private DatagramSocket multicastSocket = null;
 	private String groupadds 				= Constant.MULTICAST_IP;					//组播地址
 	private int groupport 					= Constant.PPORT;							//组播端口	
 	private static final int BUFSIZE 		= 2048;
@@ -50,8 +54,9 @@ public class MulticastBase
 				wifimanager.setWifiEnabled(true);
 			destAddress = InetAddress.getByName(groupadds);				
 			if(!destAddress.isMulticastAddress())										//检测该地址是否是多播地址 
-				 Iamhere("destAddress is not MulticastAddress!");
+				 Iamhere("destAddress(" + destAddress + ") is not MulticastAddress!");
 			multicastSocket = new MulticastSocket(port);
+			//multicastSocket = new DatagramSocket(port);
 			multicastSocket.joinGroup(InetAddress.getByName(groupadds));
 			multicastSocket.setTimeToLive(4);											//64组播到本地区
 			multicastSocket.setLoopbackMode(true);										//不接受自己的包
@@ -90,15 +95,17 @@ public class MulticastBase
 			if(null!=multicastSocket && !multicastSocket.isClosed())
 			{
 				DatagramPacket packet;
-				packet = new DatagramPacket(buf, length, destAddress,groupport); 
+				lock.acquire();
+				packet = new DatagramPacket(buf, length, destAddress,groupport);			
 				multicastSocket.send(packet);
+				lock.release();
 			}
 		}
 		catch (Exception e)
 		{
 			SocketException();
 			e.printStackTrace();
-		}			
+		}
 	}
 	public int MulticastReceive(byte[] buf,int reqlength)								//多播接收数据
 	{
