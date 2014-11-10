@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.ufirephone"
+    android:versionCode="2"
+    android:versionName="1.0.0" >
+
+    <uses-sdk android:minSdkVersion="14" />
+
+    <!-- 网络许可 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- 数据权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+    <!-- 其他硬件资源 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- 浮球服务权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 用户隐私数据 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <application
+        android:name=".util.MyApplication"
+        android:icon="@drawable/ufire_interphone"
+        android:label="@string/app_name" >
+        <activity
+            android:name="com.android.ufirephone.home.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="com.android.ufirephone.home.WhildPhone"
+            android:label="@string/title_activity_wridacivity"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.ufirephone.service.SweepRadar"
+            android:label="@string/title_activity_sweepRadar" >
+        </activity>
+
+        <receiver android:name="com.android.ufirephone.service.MediaButtonReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" >
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.android.ufirephone.wifiservice.WiFiDirectActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />                
+            </intent-filter>
+        </activity>
+
+        <!-- Used for transferring files  after a successful connection -->
+        <service
+            android:name=".FileTransferService"
+            android:enabled="true" />
+
+        <!-- 系统服务 -->
+
+    </application>
+
+</manifest>

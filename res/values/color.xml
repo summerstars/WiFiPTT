@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="white">#FFFFFFFF</drawable>
+    <drawable name="black">#000000</drawable>
+    <drawable name="other">#fff00f</drawable>
+    <drawable name="blue">#0000FF</drawable>
+    <drawable name="pink">#FFCCFF</drawable>
+    <drawable name="green">#00FF00</drawable>
+
+    <color name="trans_black">#aa000000</color>
+    <color name="color_icon_text_pressed">#ff00aeff</color>
+    <color name="color_icon_text">#ffffffff</color>
+    <color name="status_bar_color">#FF000000</color>
+    <color name="layout_border_color">#FF111111</color>
+
+</resources>
